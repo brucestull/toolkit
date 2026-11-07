@@ -1,0 +1,40 @@
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.http import JsonResponse
+from django.urls import include
+from django.urls import path
+
+from config import __version__
+from config.views import VersionView
+from health_check.views import HealthCheckView
+
+
+def version(request):
+    return JsonResponse({"version": f"{__version__}"})
+
+
+urlpatterns = [
+    path(settings.ADMIN_URL, admin.site.urls),
+    path("apis/version/", version, name="version"),
+    path("version.txt", VersionView.as_view()),
+    path(
+        "health/",
+        # We only enable the Database check here. django-health-check 4.x also
+        # ships Cache, DNS, Mail, and Storage checks, which we intentionally leave
+        # off. The Django-Q2 worker is health-checked separately by
+        # healthcheck-worker.sh (checks its `manage worker worker` process), not
+        # via a health_check backend.
+        HealthCheckView.as_view(
+            checks=[
+                "health_check.Database",
+            ]
+        ),
+    ),
+]
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

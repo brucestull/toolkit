@@ -1,0 +1,13 @@
+**/__pycache__
+*.pyc
+.*
+compose.override.yml
+compose.yml
+Dockerfile*
+justfile
+LICENSE
+README.md
+# Built inside the image by collectstatic; a host copy would only be stale.
+static/
+# Local uploads (gitignored).
+media/

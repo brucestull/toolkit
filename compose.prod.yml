@@ -1,0 +1,13 @@
+# STAGING / prod-style overrides, layered on top of compose.yml.
+# Activated per-clone by COMPOSE_FILE=compose.yml:compose.prod.yml in .env.
+services:
+  web:
+    # Production entrypoint: migrate --noinput, then gunicorn via django-prodserver.
+    command: ["/src/start-web.sh"]
+    environment:
+      - "DJANGO_DEBUG=false"
+      - "ALLOWED_HOSTS=${ALLOWED_HOSTS:-}"
+      - "CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-}"
+  worker:
+    environment:
+      - "DJANGO_DEBUG=false"

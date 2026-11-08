@@ -22,6 +22,7 @@ x-common-settings: &common-settings
 services:
   db:
     image: "pgautoupgrade/pgautoupgrade:17-alpine"
+    restart: unless-stopped
     volumes:
       - .:/src:cache
       - postgres-data:/var/lib/postgresql/data/
@@ -54,6 +55,7 @@ services:
   web:
     ports:
       - "${WEB_PORT:-8000}:8000"
+    restart: unless-stopped
     command: [ "/src/start-dev.sh" ]
     healthcheck:
       test: [ "CMD-SHELL", "/src/healthcheck-web.sh" ]
@@ -67,6 +69,7 @@ services:
 
   worker:
     command: [ "/src/start-worker.sh" ]
+    restart: unless-stopped
     healthcheck:
       test: [ "CMD-SHELL", "/src/healthcheck-worker.sh" ]
       interval: 30s

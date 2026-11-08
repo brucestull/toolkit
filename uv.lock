@@ -82,6 +82,14 @@ wheels = [
 ]
 
 [[package]]
+name = "dj-skills"
+version = "0.1.0"
+source = { git = "https://github.com/brucestull/dj-skills.git?rev=v0.1.0#596669585ad8e950d2169679eeef5be93cd9934b" }
+dependencies = [
+    { name = "django" },
+]
+
+[[package]]
 name = "django"
 version = "6.0.10"
 source = { registry = "https://pypi.org/simple" }
@@ -504,6 +512,7 @@ version = "2026.1.1"
 source = { virtual = "." }
 dependencies = [
     { name = "blessed" },
+    { name = "dj-skills" },
     { name = "django" },
     { name = "django-browser-reload" },
     { name = "django-click" },
@@ -529,6 +538,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "blessed" },
+    { name = "dj-skills", git = "https://github.com/brucestull/dj-skills.git?rev=v0.1.0" },
     { name = "django", specifier = "<6.1" },
     { name = "django-browser-reload" },
     { name = "django-click" },

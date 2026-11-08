@@ -9,6 +9,7 @@ dev = [
 [project]
 dependencies = [
   "blessed",
+  "dj-skills",
   "django-browser-reload",
   "django-click",
   "django-crawl",
@@ -20,7 +21,7 @@ dependencies = [
   "environs[django]",
   "psycopg[binary]",
   "sentry-sdk",
-  "whitenoise"
+  "whitenoise",
 ]
 description = "Add your description here"
 name = "toolkit"
@@ -100,3 +101,6 @@ unfixable = []
 
 [tool.uv]
 package = false
+
+[tool.uv.sources]
+dj-skills = { git = "https://github.com/brucestull/dj-skills.git", rev = "v0.1.0" }
